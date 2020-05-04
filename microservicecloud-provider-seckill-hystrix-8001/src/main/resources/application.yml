@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: microservicecloud-seckill
+  thymeleaf:
+    cache: false
+    encoding: utf-8
+    mode: HTML5
+    prefix: classpath:/templates/
+    suffix: .html
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: jun1980621312
+    url: jdbc:mysql://127.0.0.1:3306/miaosha1
+mybatis:
+  #type-aliases-package: com.wjl.springbootmybatis.entity
+  mapper-locations: classpath:mappers/*
+  #配置rabbitMq 服务器
+rabbitmq:
+  host: 127.0.0.1
+  port: 5672
+  username: guest
+  password: guest
+  #虚拟host 可以不设置,使用server默认host
+
+server:
+  port: 8001
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7001.com:7001/eureka/，http://eureka7003.com:7003/eureka/
+
+  #  下面部分为部门在eureka注册中心的id，ip地址信息显示
+  instance:
+    instance-id: microservicecloud-seckill-hystrix-8001
+    prefer-ip-address: true
+#和actuator包配合使用使本微服务的info能在eureka注册中心被看到
+info:
+  app.name: atguigu-microservicecloud
+  company.name: www.atguigu.com
+  build.artifactId: $project.artfactId$
+  build.version: $project.version$
+
+
+
