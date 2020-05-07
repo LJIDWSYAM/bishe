@@ -15,7 +15,7 @@ import java.util.List;
  * @date : ${DATA}
  */
 
-@FeignClient(value = "MICROSERVICECLOUD-SECKILL",fallbackFactory =SeckillClientServiceFallbackFactory.class)
+@FeignClient(value = "MICROSERVICECLOUD-SECKILL",fallbackFactory = SeckillClientServiceFallbackFactory.class)
 public interface SeckillClientService
 {
     @RequestMapping("/order/doMiaosha")

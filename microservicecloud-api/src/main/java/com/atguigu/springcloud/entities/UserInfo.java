@@ -13,6 +13,16 @@ import java.util.Date;
  * \
  */
 public class UserInfo implements Serializable {
+    private String user_image;
+
+    public String getUser_image() {
+        return user_image;
+    }
+
+    public void setUser_image(String user_image) {
+        this.user_image = user_image;
+    }
+
     private int user_id;
     private String user_account;
     public int getUser_id() {

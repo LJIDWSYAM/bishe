@@ -35,8 +35,8 @@ public class indexController {
         return "orderInfo";
     }
 
-
-
-
-
+    @RequestMapping("/persional")
+    public String persional(){
+        return "personal";
+    }
 }

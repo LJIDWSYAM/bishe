@@ -7,6 +7,7 @@ import com.atguigu.springcloud.config.Constants;
 import com.atguigu.springcloud.entities.QQUserInfo;
 import com.atguigu.springcloud.entities.UserInfo;
 import com.atguigu.springcloud.service.QQService;
+import com.atguigu.springcloud.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,8 @@ public class QQController {
     private Constants constants;
     @Autowired
     QQService qqService;
-
+    @Autowired
+    UserService userService;
 
     /**
      * 获得跳转到qq登录页的url,前台直接a连接访问
@@ -85,16 +87,19 @@ public class QQController {
         //Map<String, Object> refreshToken = refreshToken(qqProperties);
 
         //获取数据
-        QQUserInfo userInfo =  getUserInfo(qqProperties);
-        userInfo.setOpenId(openId);
+        QQUserInfo qquserInfo =  getUserInfo(qqProperties);
+        qquserInfo.setOpenId(openId);
         //向数据库里插入qq用户信息
-        QQUserInfo qqUserInfo=qqService.selectQuserInfoByOpenid(openId);
-        if (qqUserInfo==null){
-            qqService.insertintoQquserInfo(userInfo);
+        UserInfo userInfo=new UserInfo();
+        userInfo.setUser_account(openId);
+        userInfo.setUser_name(qquserInfo.getNickname());
+        userInfo.setUser_image(qquserInfo.getFigureurl_1());
+        QQUserInfo qqUserInfoByDatabase=qqService.selectQuserInfoByOpenid(openId);
+        if (qqUserInfoByDatabase==null){
+            qqService.insertintoQquserInfo(qquserInfo);
+            userService.regist(userInfo);
         }
-        UserInfo userInfo1=new UserInfo();
-        userInfo1.setUser_account(openId);
-        session.setAttribute("UserInfo",userInfo1);
+        session.setAttribute("UserInfo",userInfo);
         return "redirect:/listProducts";
     }
 

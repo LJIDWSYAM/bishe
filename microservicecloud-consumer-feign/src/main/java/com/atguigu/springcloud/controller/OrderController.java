@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -113,18 +114,6 @@ public class OrderController {
         }
         // 支付环节需要，地址id，账号，秒杀商品id。
         String user_account = userInfo.getUser_account();//miaoshaGoodsId,address_id已有
-        //下订单   (判断库存，减少库存，存入订单表)
-        //判断库存  select miaosha_stock from miaoshaGoods where miaoshagoods_id = miaoshaGoodsId
-//        int num = goodsService.selectMiaoshaGoods(miaoshaGoodsId).getMiaosha_stock();
-//        if (num > 0) {
-//            String key="goods"+miaoshaGoodsId;
-//            Object o = redisUtil.lPop(key);
-//            if(o != null){
-//                //说明有库存
-        //减少库存   update miaosha_goods set miaosha_stock = miaosha_stock -1 where miaoshagoods_id = 3
-        //插入订单 insert into orderinfo(order_no,address_id,miaoshagoods_id,user_id,create_time,buy_count) VALUES()
-        //        OrderInfo orderInfo = orderService.doOrderInfo(miaoshaGoodsId,userInfo);
-
         OrderDetailInfo orderdetailInfo = orderService.insertOrderdetailInfo(miaoshaGoodsId, user_account, address_id);
         String order_no = orderdetailInfo.getOrder_no();
         //假设现在是立即支付  引入支付宝
@@ -153,5 +142,13 @@ public class OrderController {
         return Result.success("1");//继续轮询
     }
 
-
+    @ResponseBody
+    @RequestMapping(value = "/selectPersoonalAllOrder")
+    public List<OrderDetailInfoVo> selectPersonalAllOrderInfoByUser_account(HttpSession session){
+        UserInfo userInfo = (UserInfo) session.getAttribute("UserInfo");
+        String user_account=userInfo.getUser_account();
+        List<OrderDetailInfoVo> orderDetailInfoVos=new ArrayList<>();
+        orderDetailInfoVos=orderService.selectPersonalAllOrderInfoByUser_account(user_account);
+        return orderDetailInfoVos;
+    }
 }

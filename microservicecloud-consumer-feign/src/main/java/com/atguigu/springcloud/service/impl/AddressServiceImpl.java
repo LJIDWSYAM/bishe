@@ -7,6 +7,8 @@ import com.atguigu.springcloud.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * \* Created with IntelliJ IDEA.
  * \* User: liujun
@@ -29,5 +31,16 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void insertAddress(Address address) {
         addressDao.insertAddress(address);
+    }
+
+    @Override
+    public List<Address> selectAllAddresssByUser_account(String user_account) {
+        return addressDao.selectAllAddresssByUser_account(user_account);
+    }
+
+    @Override
+    public boolean deleteAddress(String address_id) {
+        addressDao.deleteAddress(address_id);
+        return true;
     }
 }

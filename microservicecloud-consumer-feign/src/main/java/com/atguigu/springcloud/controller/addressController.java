@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -36,5 +38,18 @@ public class addressController {
         address.setUser_account(userInfo.getUser_account());
         addressService.insertAddress(address);
         return true;
+    }
+    @ResponseBody
+    @RequestMapping("/PersonalAllAddress")
+    public List<Address> selectAllAddresssByUser_account( HttpSession session){
+        UserInfo userInfo= (UserInfo) session.getAttribute("UserInfo");
+        List<Address> addresses=new ArrayList<>();
+        addresses=addressService.selectAllAddresssByUser_account(userInfo.getUser_account());
+        return addresses;
+    }
+    @ResponseBody
+    @RequestMapping("/deleteAddress")
+    public boolean deleteAddress( String address_id){
+        return addressService.deleteAddress(address_id);
     }
 }

@@ -6,8 +6,8 @@
     </select>
 
     <insert id="regist" parameterType="com.atguigu.springcloud.entities.UserInfo" useGeneratedKeys="true" keyProperty="user_id">
-        INSERT INTO userinfo (user_name,user_pwd,regist_time,last_login_time,user_email,user_account)
-         VALUES(#{user_name},#{user_pwd},#{regist_time},#{last_login_time},#{user_email},#{user_account})
+        INSERT INTO userinfo (user_name,user_pwd,regist_time,last_login_time,user_email,user_account,user_image)
+         VALUES(#{user_name},#{user_pwd},#{regist_time},#{last_login_time},#{user_email},#{user_account},#{user_image})
     </insert>
 
     <select id="selectUserinfoByUserNameAndPassword" resultType="com.atguigu.springcloud.entities.UserInfo" parameterType="com.atguigu.springcloud.entities.UserInfo">

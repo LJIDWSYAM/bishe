@@ -11,4 +11,14 @@
         insert into address (reciver_name,reciver_phone,reciver_address,post_no,user_account)
         values (#{reciver_name},#{reciver_phone},#{reciver_address},#{post_no},#{user_account})
     </insert>
+    <select id="selectAllAddresssByUser_account" resultType="com.atguigu.springcloud.entities.Address">
+        select *
+        from address
+        where user_account=#{user_account}
+    </select>
+    <delete id="deleteAddress" parameterType="String">
+        delete
+        from `address`
+        where address_id=#{address_id}
+    </delete>
 </mapper>

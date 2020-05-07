@@ -42,7 +42,7 @@ public class SeckillController {
     @RequestMapping("/doMiaosha")
     public Result<String> doMiaosha(@RequestBody MiaoShaMessage miaoShaMessage, HttpSession session){
         String miaoshagoods_id=miaoShaMessage.getMiaoshagoods_id();
-        System.out.println(miaoShaMessage);
+//        System.out.println(miaoShaMessage);
         Order order=orderService.isRepeatOrder(miaoShaMessage);
         if (order==null){//如果没有订单，生成订单
             String key="goods"+miaoshagoods_id;

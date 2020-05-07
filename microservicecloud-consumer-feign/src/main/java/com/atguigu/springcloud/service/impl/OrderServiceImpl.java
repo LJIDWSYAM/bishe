@@ -69,9 +69,8 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public OrderDetailInfoVo selectAllInfoByOrderNo(String order_no) {
-        OrderDetailInfoVo orderInfoVo=orderDao.selectAllInfoByOrderNo(order_no);
-        return orderInfoVo;
+    public List<OrderDetailInfoVo> selectPersonalAllOrderInfoByUser_account(String user_account) {
+        return orderDao.selectPersonalAllOrderInfoByUser_account(user_account);
     }
 
     @Override

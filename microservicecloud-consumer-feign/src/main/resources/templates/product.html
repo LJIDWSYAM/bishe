@@ -955,6 +955,11 @@
 							else if(result.code==5005){//超时
 								alert(result.msg)
 							}
+							else {
+								if (result.msg!=null){
+									alert(result.msg);
+								}
+							}
 						}
 					})
 				}
