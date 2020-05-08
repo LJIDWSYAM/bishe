@@ -13,83 +13,42 @@ import java.util.Date;
  * \
  */
 public class OrderDetailInfoVo implements Serializable {
-    private int goods_id;
-
-    private String goods_name;
-
-    private double goods_price;
-
-    private String goods_desc;
-
-    private int goods_stock;
-
-    private String goods_img;
-
     @Override
     public String toString() {
-        return "OrderDetailInfoVo{" +
-                "goods_id=" + goods_id +
-                ", goods_name='" + goods_name + '\'' +
-                ", goods_price=" + goods_price +
-                ", goods_desc='" + goods_desc + '\'' +
-                ", goods_stock=" + goods_stock +
-                ", goods_img='" + goods_img + '\'' +
+        return "OrderInfoVo{" +
+                "order_id=" + order_id +
                 ", order_no='" + order_no + '\'' +
+                ", address_id=" + address_id +
                 ", miaoshagoods_id=" + miaoshagoods_id +
                 ", user_account='" + user_account + '\'' +
                 ", create_time=" + create_time +
+                ", pay_time=" + pay_time +
                 ", buy_count=" + buy_count +
-                ", state=" + state +
+                ", order_pay_no='" + order_pay_no + '\'' +
+                ", address=" + address +
+                ", miaoshaGoods=" + miaoshaGoods +
+                ", goods=" + goods +
                 '}';
     }
 
-    public int getGoods_id() {
-        return goods_id;
+    private int order_id;
+    private String order_no;
+    private int address_id;
+
+    public int getOrder_id() {
+        return order_id;
     }
 
-    public void setGoods_id(int goods_id) {
-        this.goods_id = goods_id;
+    public void setOrder_id(int order_id) {
+        this.order_id = order_id;
     }
 
-    public String getGoods_name() {
-        return goods_name;
-    }
-
-    public void setGoods_name(String goods_name) {
-        this.goods_name = goods_name;
-    }
-
-    public double getGoods_price() {
-        return goods_price;
-    }
-
-    public void setGoods_price(double goods_price) {
-        this.goods_price = goods_price;
-    }
-
-    public String getGoods_desc() {
-        return goods_desc;
-    }
-
-    public void setGoods_desc(String goods_desc) {
-        this.goods_desc = goods_desc;
-    }
-
-    public int getGoods_stock() {
-        return goods_stock;
-    }
-
-    public void setGoods_stock(int goods_stock) {
-        this.goods_stock = goods_stock;
-    }
-
-    public String getGoods_img() {
-        return goods_img;
-    }
-
-    public void setGoods_img(String goods_img) {
-        this.goods_img = goods_img;
-    }
+    private int miaoshagoods_id;
+    private String user_account;
+    private Date create_time;
+    private Date pay_time;
+    private int buy_count;
+    private String order_pay_no;
 
     public String getOrder_no() {
         return order_no;
@@ -97,6 +56,14 @@ public class OrderDetailInfoVo implements Serializable {
 
     public void setOrder_no(String order_no) {
         this.order_no = order_no;
+    }
+
+    public int getAddress_id() {
+        return address_id;
+    }
+
+    public void setAddress_id(int address_id) {
+        this.address_id = address_id;
     }
 
     public int getMiaoshagoods_id() {
@@ -123,6 +90,14 @@ public class OrderDetailInfoVo implements Serializable {
         this.create_time = create_time;
     }
 
+    public Date getPay_time() {
+        return pay_time;
+    }
+
+    public void setPay_time(Date pay_time) {
+        this.pay_time = pay_time;
+    }
+
     public int getBuy_count() {
         return buy_count;
     }
@@ -131,18 +106,39 @@ public class OrderDetailInfoVo implements Serializable {
         this.buy_count = buy_count;
     }
 
-    public int getState() {
-        return state;
+    public String getOrder_pay_no() {
+        return order_pay_no;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setOrder_pay_no(String order_pay_no) {
+        this.order_pay_no = order_pay_no;
     }
 
-    private String order_no;
-    private int miaoshagoods_id;
-    private String user_account;
-    private Date create_time;
-    private int buy_count;
-    private int state;
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public MiaoshaGoods getMiaoshaGoods() {
+        return miaoshaGoods;
+    }
+
+    public void setMiaoshaGoods(MiaoshaGoods miaoshaGoods) {
+        this.miaoshaGoods = miaoshaGoods;
+    }
+
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
+    }
+
+    private Address address;
+    private MiaoshaGoods miaoshaGoods;
+    private Goods goods;
 }

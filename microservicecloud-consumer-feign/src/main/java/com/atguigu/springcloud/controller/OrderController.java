@@ -144,10 +144,10 @@ public class OrderController {
 
     @ResponseBody
     @RequestMapping(value = "/selectPersoonalAllOrder")
-    public List<OrderDetailInfoVo> selectPersonalAllOrderInfoByUser_account(HttpSession session){
+    public List<OrderAndGoodsInfo> selectPersonalAllOrderInfoByUser_account(HttpSession session){
         UserInfo userInfo = (UserInfo) session.getAttribute("UserInfo");
         String user_account=userInfo.getUser_account();
-        List<OrderDetailInfoVo> orderDetailInfoVos=new ArrayList<>();
+        List<OrderAndGoodsInfo> orderDetailInfoVos=new ArrayList<>();
         orderDetailInfoVos=orderService.selectPersonalAllOrderInfoByUser_account(user_account);
         return orderDetailInfoVos;
     }

@@ -7,6 +7,7 @@ import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.atguigu.springcloud.Utils.AlipayConfig;
 import com.atguigu.springcloud.entities.MiaoShaMessage;
+import com.atguigu.springcloud.entities.OrderAndGoodsInfo;
 import com.atguigu.springcloud.entities.OrderDetailInfoVo;
 import com.atguigu.springcloud.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;

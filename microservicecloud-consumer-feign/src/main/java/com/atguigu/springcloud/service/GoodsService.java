@@ -4,9 +4,11 @@ package com.atguigu.springcloud.service;
 
 import com.atguigu.springcloud.Utils.Page;
 import com.atguigu.springcloud.entities.Goods;
+import com.atguigu.springcloud.entities.GoodsAndMiaoShaGoods;
 import com.atguigu.springcloud.entities.MiaoShaMessage;
 import com.atguigu.springcloud.entities.MiaoshaGoods;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface GoodsService {
@@ -21,4 +23,5 @@ public interface GoodsService {
 
     void recoveryStockAndRedis(MiaoShaMessage miaoShaMessage);
 
+    boolean insertGoodsAndMiaoShaGoods(GoodsAndMiaoShaGoods goodsAndMiaoShaGoods) throws ParseException;
 }

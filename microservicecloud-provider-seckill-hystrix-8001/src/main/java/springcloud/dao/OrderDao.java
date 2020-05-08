@@ -21,8 +21,8 @@ public interface OrderDao {
     List<Address> selectAddressByUserAccount(String user_account);
     void reduceMiaoshaGoodsNum(String miaoshagoods_id);
     void insertOrderInfo(OrderDetailInfo orderdetailInfo);
-    OrderDetailInfoVo selectAllInfoByOrderNo(String order_no);
-    void updateOrder(OrderDetailInfoVo orderInfoVo);
+    OrderAndGoodsInfo selectAllInfoByOrderNo(String order_no);
+    void updateOrder(OrderAndGoodsInfo orderInfoVo);
     void insertOrder(Order order);
     Order isRepeatOrder(MiaoShaMessage miaoShaMessage);
     void updateOrderState(MiaoShaMessage miaoShaMessage);

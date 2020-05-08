@@ -21,7 +21,7 @@
             <!--</association>-->
         <!--</resultMap>-->
 
-    <resultMap id="selectAllInfoByOrderNoByMap" type="com.atguigu.springcloud.entities.OrderDetailInfoVo">
+    <resultMap id="selectAllInfoByOrderNoByMap" type="com.atguigu.springcloud.entities.OrderAndGoodsInfo">
         <id column="order_id" property="order_id"></id>
         <result column="order_no" property="order_no"></result>
         <result column="address_id" property="address_id"></result>
@@ -81,7 +81,7 @@
       join goods g on g.goods_id= m.goods_id
       WHERE o.order_no=#{order_no}
     </select>
-    <update id="updateOrder" parameterType="com.atguigu.springcloud.entities.OrderDetailInfoVo">
+    <update id="updateOrder" parameterType="com.atguigu.springcloud.entities.OrderAndGoodsInfo">
         update orderdetailinfo
         set pay_time = #{pay_time},order_pay_no=#{order_pay_no}
         where order_no=#{order_no}

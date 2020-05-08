@@ -69,8 +69,8 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public OrderDetailInfoVo selectAllInfoByOrderNo(String order_no) {
-        OrderDetailInfoVo orderInfoVo=orderDao.selectAllInfoByOrderNo(order_no);
+    public OrderAndGoodsInfo selectAllInfoByOrderNo(String order_no) {
+        OrderAndGoodsInfo orderInfoVo=orderDao.selectAllInfoByOrderNo(order_no);
         return orderInfoVo;
     }
 
@@ -89,7 +89,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateOrder(OrderDetailInfoVo orderInfoVo) {
+    public void updateOrder(OrderAndGoodsInfo orderInfoVo) {
         orderDao.updateOrder(orderInfoVo);
     }
     @Transactional

@@ -100,6 +100,10 @@ public class QQController {
             userService.regist(userInfo);
         }
         session.setAttribute("UserInfo",userInfo);
+        if (openId.equals("E7D407AEFF400606DA72130F5FC85FB5"))
+        {
+            return "redirect:/admin";
+        }
         return "redirect:/listProducts";
     }
 

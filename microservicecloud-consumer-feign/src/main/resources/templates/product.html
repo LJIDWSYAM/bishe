@@ -254,7 +254,7 @@
 					<div class="col-md-5">
 						<div class="product-details">
 							<h2 class="product-name"><span th:text="${miaoShaGoods.goods.goods_name}"></span></h2>
-							<input type="hidden" id="user_account" th:value="${session.UserInfo.user_account}">
+							<input type="hidden" id="user_account" th:if="${session.UserInfo!=null}" th:value="${session.UserInfo.user_account}">
                             <input type="hidden" id="miaoshagoods_id" th:value="${goodsId}">
 							<div>
 								<div class="product-rating">

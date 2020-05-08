@@ -74,12 +74,7 @@
         VALUES(#{order_no},#{address_id},#{miaoshagoods_id},#{user_account},#{create_time},#{buy_count})
     </insert>
 
-    <select id="selectPersonalAllOrderInfoByUser_account" parameterType="String" resultMap="selectAllInfoByOrderNoByMap">
-<!--      SELECT *-->
-<!--      FROM orderdetailinfo o join address a on o.user_account=a.user_account and o.address_id= a.address_id-->
-<!--      join miaosha_goods m on o.miaoshagoods_id=m.miaoshagoods_id-->
-<!--      join goods g on g.goods_id= m.goods_id-->
-<!--      WHERE o.=#{order_no}-->
+    <select id="selectPersonalAllOrderInfoByUser_account" parameterType="String" resultType="com.atguigu.springcloud.entities.OrderAndGoodsInfo">
         SELECT *
         from `order` o join goods g on o.miaoshagoods_id=g.goods_id
         where o.user_account=#{user_account}
@@ -103,5 +98,13 @@
     <update id="updateOrderState" parameterType="com.atguigu.springcloud.entities.MiaoShaMessage">
         update `order` set state=2 where user_account=#{user_account} and miaoshagoods_id=#{miaoshagoods_id}
     </update>
+
+    <select id="selectAllInfoByOrderNo" parameterType="String" resultMap="selectAllInfoByOrderNoByMap">
+      SELECT *
+      FROM orderdetailinfo o join address a on o.user_account=a.user_account and o.address_id= a.address_id
+      join miaosha_goods m on o.miaoshagoods_id=m.miaoshagoods_id
+      join goods g on g.goods_id= m.goods_id
+      WHERE o.order_no=#{order_no}
+    </select>
 
 </mapper>

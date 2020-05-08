@@ -14,8 +14,8 @@ public interface OrderService {
     List<Address> selectAddressByUserAccount(String user_account);
     void reduceMiaoshaGoodsNum(String miaoshagoodsId);
     void insertOrderInfo(OrderDetailInfo orderdetailInfo);
-    OrderDetailInfoVo selectAllInfoByOrderNo(String order_no);
-    void updateOrder(OrderDetailInfoVo orderInfoVo);
+    OrderAndGoodsInfo selectAllInfoByOrderNo(String order_no);
+    void updateOrder(OrderAndGoodsInfo orderInfoVo);
     void insertOrder(Order order);
     void insertOrderANDreduceMiaoshaGoodsNum(String miaoshagoodsId, String user_account);
     Order isRepeatOrder(MiaoShaMessage miaoShaMessage);

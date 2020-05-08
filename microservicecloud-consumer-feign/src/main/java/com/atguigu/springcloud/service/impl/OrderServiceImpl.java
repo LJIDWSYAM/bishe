@@ -62,6 +62,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public OrderDetailInfoVo selectAllInfoByOrderNo(String order_no) {
+        OrderDetailInfoVo orderInfoVo=orderDao.selectAllInfoByOrderNo(order_no);
+        return orderInfoVo;
+    }
+
+    @Override
     public void updateOrderState(MiaoShaMessage miaoShaMessage) {
         orderDao.updateOrderState(miaoShaMessage);
     }
@@ -69,8 +75,13 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public List<OrderDetailInfoVo> selectPersonalAllOrderInfoByUser_account(String user_account) {
+    public List<OrderAndGoodsInfo> selectPersonalAllOrderInfoByUser_account(String user_account) {
         return orderDao.selectPersonalAllOrderInfoByUser_account(user_account);
+    }
+
+    @Override
+    public void updateOrder(OrderDetailInfoVo orderInfoVo)  {
+        orderDao.updateOrder(orderInfoVo);
     }
 
     @Override
@@ -87,10 +98,7 @@ public class OrderServiceImpl implements OrderService {
         orderDao.insertOrder(order);
     }
 
-    @Override
-    public void updateOrder(OrderDetailInfoVo orderInfoVo) {
-        orderDao.updateOrder(orderInfoVo);
-    }
+
     @Transactional
     @Override
     public void insertOrderANDreduceMiaoshaGoodsNum(String miaoshagoodsId, String user_account) {

@@ -72,7 +72,7 @@ public class userController {
     @ResponseBody
     public boolean login_check(HttpSession session){
         UserInfo userInfo= (UserInfo) session.getAttribute("UserInfo");
-        if (userInfo.getUser_account()!=null){
+        if (userInfo!=null){
             return true;
         }else {
             return false;

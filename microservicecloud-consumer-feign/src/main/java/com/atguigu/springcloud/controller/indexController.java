@@ -39,4 +39,9 @@ public class indexController {
     public String persional(){
         return "personal";
     }
+
+    @RequestMapping("/admin")
+    public String admin(){
+        return "products2";
+    }
 }

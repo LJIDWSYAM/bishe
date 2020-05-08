@@ -41,4 +41,13 @@
     <update id="recoveryStock" parameterType="com.atguigu.springcloud.entities.MiaoShaMessage">
         update `miaosha_goods` set miaosha_stock=miaosha_stock+1 where miaoshagoods_id=#{miaoshagoods_id}
     </update>
+    <insert id="insertGoods" parameterType="com.atguigu.springcloud.entities.Goods" useGeneratedKeys="true" keyProperty="goods_id">
+        insert into `goods` (goods_name,goods_price,goods_desc,goods_stock,goods_img)
+        values (#{goods_name},#{goods_price},#{goods_desc},#{goods_stock},#{goods_img})
+    </insert>
+
+    <insert id="insertMiaoShaGoods" parameterType="com.atguigu.springcloud.entities.MiaoshaGoods">
+        insert into `miaosha_goods` (goods_id,miaosha_price,miaosha_stock,begin_time,end_time)
+        values (#{goods_id},#{miaosha_price},#{miaosha_stock},#{begin_time},#{end_time})
+    </insert>
 </mapper>

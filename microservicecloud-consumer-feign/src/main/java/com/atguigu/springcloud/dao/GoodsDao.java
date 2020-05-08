@@ -25,4 +25,6 @@ public interface GoodsDao {
 
     void recoveryStock(MiaoShaMessage miaoShaMessage);
 
+    int insertGoods(Goods goods);
+    int insertMiaoShaGoods(MiaoshaGoods miaoshaGoods);
 }

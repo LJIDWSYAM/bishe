@@ -13,6 +13,8 @@
 
 	<!-- Bootstrap -->
 	<link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/base.css}"/>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/calendar.min.css}"/>
 
 	<!-- Slick -->
 	<link type="text/css" rel="stylesheet" th:href="@{/css/slick.css}"/>
@@ -191,25 +193,74 @@
 				<div class="store-filter clearfix">
 					<div class="store-sort">
 						<label>
-							Sort By:
-							<select class="input-select">
-								<option value="0">Popular</option>
-								<option value="1">Position</option>
-							</select>
-						</label>
-
-						<label>
-							Show:
-							<select class="input-select">
-								<option value="0">20</option>
-								<option value="1">50</option>
-							</select>
+							商品上传：
 						</label>
 					</div>
-					<ul class="store-grid">
-						<li class="active"><i class="fa fa-th"></i></li>
-						<li><a href="#"><i class="fa fa-th-list"></i></a></li>
-					</ul>
+					<div>
+						<form id="goodsAndMiaoShaGoodsAddForm" method="post" enctype="multipart/form-data" οnsubmit="return false">
+							<div class="form-group">
+								<label for="exampleInputName">商品名称</label>
+								<input type="text" name="goods_name" class="form-control" id="exampleInputName" placeholder="商品名称">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputPreice">商品价格</label>
+								<input type="text" name="goods_price" class="form-control" id="exampleInputPreice" placeholder="商品价格">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputStock">商品数量</label>
+								<input type="text" name="goods_stock" class="form-control" id="exampleInputStock" placeholder="商品数量">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputDesc">商品介绍</label>
+								<input type="text" name="goods_desc" class="form-control" id="exampleInputDesc" placeholder="商品介绍">
+							</div>
+
+							<div class="form-group">
+								<label for="exampleInputMSPreice">商品秒杀价格</label>
+								<input type="text" name="miaosha_price" class="form-control" id="exampleInputMSPreice" placeholder="秒杀价格">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputMSStock">商品秒杀数量</label>
+								<input type="text" name="miaosha_stock" class="form-control" id="exampleInputMSStock" placeholder="秒杀数量">
+							</div>
+
+
+							<div class="form-item">
+								<div class="form-lab">开始时间:</div>
+								<div class="form-field">
+									<div>
+										<div class="select-win" id="datesWrap1">
+											<div class="select-btn">
+												<span class="select-btn-icon new-icon-calendar" id="dateBtn1"></span>
+											</div>
+											<input type="text" name="begin_time" placeholder="YYYY-MM-DD hh:mm:ss" id="date1" class="select-text" />
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-item">
+								<div class="form-lab">结束时间:</div>
+								<div class="form-field">
+									<div>
+										<div class="select-win" id="datesWrap2">
+											<div class="select-btn">
+												<span class="select-btn-icon new-icon-calendar" id="dateBtn2"></span>
+											</div>
+											<input type="text" name="end_time" placeholder="YYYY-MM-DD hh:mm:ss" id="date2" class="select-text" />
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="exampleInputFile">商品图片</label>
+								<input type="file" id="exampleInputFile" name="file">
+							</div>
+							<input id="tijiao" type="button" class="btn btn-success" value="提交"></input>
+						</form>
+
+					</div>
 				</div>
 				<!-- /store top filter -->
 
@@ -379,90 +430,74 @@
 <script type="text/javascript" th:src="@{/js/nouislider.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/jquery.zoom.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/calendar.min.js}"></script>
+<script script th:inline="javascript" type="text/javascript">
+	$(function () {
+		$("#tijiao").click(function () {
+			var formData = new FormData($("#goodsAndMiaoShaGoodsAddForm")[0]);
+			$.ajax({
+				url: "/goods/insertGoodsAndMiaoShaGoods",
+				type: 'POST',
+				data: formData,
+				cache: false,
+				async: false,
+				processData: false,  //必须false才会避开jQuery对 formdata 的默认处理
+				contentType: false,  //必须false才会自动加上正确的Content-Type
 
+				success: function (data) {
+					alert("上传成功");
+				},
+				error: function (data) {
+					alert("上传失败");
+				}
+			});
+		});
+	})
+
+</script>
 <script script th:inline="javascript" type="text/javascript">
 
-    //页面完成加载，立即从服务端获取商品数据
-    $(function () {
-		//获取项目根路径
-		var ctxPath=[[${#httpServletRequest.getContextPath()}]];
-        showGoodsByPageNumber(1);
+	//页面完成加载，立即从服务端获取商品数据
+	$(function () {
+		//时间插件
+		var opts1 = {//example 1 opts
+					'targetId': 'date1',//时间写入对象的id
+					'triggerId': ['date1', 'dateBtn1'],//触发事件的对象id
+					'alignId': 'datesWrap1',//日历对齐对象
+					'format': '-',//时间格式 默认'YYYY-MM-DD HH:MM:SS'
+					'min': '2020-01-01 00:00:00',//最大时间
+					'max': '2021-01-01 00:00:00'//最小时间
+				},
+				opts2 = {//example 2 opts
+					'targetId': 'date2',
+					'triggerId': ['dateBtn2'],
+					'alignId': 'datesWrap2',
+					'format': '-',//时间格式 默认'YYYY-MM-DD HH:MM:SS'
+					'min': '2020-01-01 00:00:00',//最大时间
+					'max': '2021-01-01 00:00:00'//最小时间
+				},
+				opts3 = {//example 3 opts
+					'targetId': 'date3',
+					'triggerId': 'date3',
+					'alignId': 'datesWrap3',
+					'hms': 'off',
+					'format': '/',
+					'max': '2021-01-01',
 
-        function showGoodsByPageNumber(pageNum) {
-            $.ajax({
-                url:ctxPath+"/goods/showGoods",
-                dataType:"json",
-                data:{pageNum:pageNum},
-                success:function (result) {
-                    //处理商品显示
-                    showGoodsResult(result);
-                    //处理页码显示  store-pagination
-                    showPageNumberInfo(result);
-                }
-            });
-        }
+					display: 'modal', //显示方式 ，可选modal\inline\bubble\top\bottom
+					mode: 'scroller',
+				}, opts4 = {
+					'targetId': 'date4',//时间写入对象的id
+					'min': '2020-01-01 00:00:00',//最大时间
+					'max': '2021-01-01 00:00:00'//最小时间
+				};
 
+		xvDate(opts1);
+		xvDate(opts2);
+		xvDate(opts3);
+		xvDate(opts4);
 
-        function showGoodsResult(result) {
-
-            $("#productInfos").html("");
-            //产品显示
-            for(var i = 0;i<result.goods.length;i++){
-                var goods = result.goods[i];
-                // alert(goods.goods_price);
-
-                var html = "<div class='col-md-4 col-xs-6'><div class='product'><div class='product-img'>";
-                html+= " <img th:src=@{/img/"+goods.goods_img+"}> ";
-                //<img src='"+ctxPath+"/img/"+goods.goods_img+"'
-                html+= "<input type='hidden' class='idValue' value='"+goods.goods_id+"'>";
-                html += "<div class='product-label'><span class='sale'>-30%</span>";
-                html +="<span class='new'>NEW</span>";
-                html+="</div></div><div class='product-body'>";
-                html+="<p class=\"product-category\">Category</p>";
-                html+="<h3 class=\"product-name\"><a href=\"#\">"+goods.goods_name+"</a></h3>";
-                html+="<h4 class=\"product-price\"> <del class=\"product-old-price\">"+goods.goods_price+"</del></h4>";
-                html+="<div class=\"product-rating\"><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i><i class=\"fa fa-star\"></i>";
-                html+="</div></div></div></div></div>";
-
-                $("#productInfos").append(html);
-            }
-            $(".product").click(function () {
-                var idValue=$(this).find(".idValue").val();
-                window.location.href=ctxPath+"/goods/miaoshaGoods/"+idValue;
-            });
-        }
-
-        function showPageNumberInfo(result) {
-            //"page":{"pageNum":1,"pageSize":3,"pageIndex":0,"totalCount":7,"totalPage":3}}
-            // <li class="active">1</li>
-            // 			<li><a href="#">2</a></li>
-            // 	<li><a href="#">3</a></li>
-            // 	<li><a href="#">4</a></li>
-            var html ="";
-            for(var i = 1;i<= result.page.totalPage;i++){
-                if(result.page.pageNum != i){
-                    html+= "<li><a class='currenPage'>"+i+"</a></li>";
-                }else{
-                    html+="<li class=\"active\">"+i+"</li>";
-                }
-            }
-
-            html+="<li><a href=\"#\"><i class=\"fa fa-angle-right\"></i></a></li>";
-        //
-
-            $(".store-pagination").html("");
-            $(".store-pagination").append(html);
-
-            $(".currenPage").click(function () {
-                // alert($(this).html());
-                showGoodsByPageNumber($(this).html());
-            });
-
-
-        }
-
-
-    });
+	});
 </script>
 
 </body>

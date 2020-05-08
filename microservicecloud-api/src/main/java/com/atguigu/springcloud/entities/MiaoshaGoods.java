@@ -78,4 +78,17 @@ public class MiaoshaGoods implements Serializable {
 
     private Date end_time;
     private Goods goods;
+
+    @Override
+    public String toString() {
+        return "MiaoshaGoods{" +
+                "miaoshagoods_id=" + miaoshagoods_id +
+                ", goods_id=" + goods_id +
+                ", miaosha_price=" + miaosha_price +
+                ", miaosha_stock=" + miaosha_stock +
+                ", begin_time=" + begin_time +
+                ", end_time=" + end_time +
+                ", goods=" + goods +
+                '}';
+    }
 }

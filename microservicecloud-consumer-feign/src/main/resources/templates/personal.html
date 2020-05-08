@@ -253,10 +253,11 @@
 				<!-- store bottom filter -->
 				<div class="store-filter clearfix">
 					<span class="store-qty">订单列表</span>
-					#########################
-					<table class="table table-striped">
-						<div id="order_info"></div>
-					</table>
+					<div>
+						<table class="table table-striped">
+
+						</table>
+					</div>
 				</div>
 				<!-- /store bottom filter -->
 			</div>
@@ -462,7 +463,7 @@
 				html+="<div class=\"form-group\">\n" +
 						"\t\t\t\t\t\t\t\t<input class=\"input\" id=\"reciver_phone\" type=\"tel\" name=\"reciver_phone\" value='"+Address.reciver_phone+" '  disabled=\"disabled\">\n" +
 						"\t\t\t\t\t\t\t</div>";
-				html+="<div class=\"deleteAddress\"><input type=\"button\" value=\"删除\"> " +
+				html+="<div class=\"deleteAddress\"><input class=\"btn btn-danger\" type=\"button\" value=\"删除\"> " +
 						"" +
 						"<input class=\"address_id\" type=\"hidden\"  value='"+Address.address_id+" '></div>"
 				html+="</div></div></div>";
@@ -495,34 +496,43 @@
 		}
 		function showOrderResult(result) {
 
-			$("#order_info").html("");
+			$(".table-striped").html("");
 			//地址显示
+            var html = "";
+            html+="<thead>\n" +
+                "        <tr>\n" +
+                "            <th>订单编号</th>\n" +
+                "            <th>创建时间</th>\n" +
+                "            <th>状态</th>\n" +
+                "            <th>购买数量</th>\n" +
+                "            <th>商品名称</th>\n" +
+                "            <th>价格</th>\n" +
+                "        </tr>\n" +
+                "        </thead>";
 			for(var i = 0;i<result.length;i++){
 				var Order = result[i];
+				var OrderState='';
+				if (Order.state=='1'){
+					OrderState="已完成支付";
+                }else if(Order.state=='2'){
+					OrderState="超时未支付";
+                }else
+                {
+					OrderState="待支付";
+                }
 				// alert(goods.goods_price);
-				var html = "";
-				html+="<thead>\n" +
-						"        <tr>\n" +
-						"            <th>订单编号</th>\n" +
-						"            <th>创建时间</th>\n" +
-						"            <th>状态</th>\n" +
-						"            <th>购买数量</th>\n" +
-						"            <th>商品名称</th>\n" +
-						"            <th>价格</th>\n" +
-						"        </tr>\n" +
-						"        </thead>";
-				html+="<tbody>\n" +
+				html+="\n" +
 						"    <tr>\n" +
-						"        <td th:text=\"${Order.order_no}\"></td>\n" +
-						"        <td th:text=\"${Order.create_time}\"></td>\n" +
-						"        <td th:text=\"${Order.state}\"></td>\n" +
-						"        <td th:text=\"${Order.goods_stock}\"></td>\n" +
-						"        <td th:text=\"${Order.goods_name}\"></td>\n" +
-						"        <td th:text=\"${Order.goods_price}\"></td>\n" +
+						"        <td>'"+Order.order_no+" '</td>\n" +
+						"        <td>'"+Order.create_time+" '</td>\n" +
+						"        <td>'"+OrderState+" '</td>\n" +
+						"        <td>'"+Order.goods_stock+" '</td>\n" +
+						"        <td>'"+Order.goods_name+" '</td>\n" +
+						"        <td>'"+Order.goods_price+" '</td>\n" +
 						"    </tr>\n" +
-						"    </tbody>"
+						" "
 
-				$("#productInfos").append(html);
+				$(".table-striped").append(html);
 			}
 			$(".deleteAddress").click(function () {
 				var idValue=$(this).find(".address_id").val();
