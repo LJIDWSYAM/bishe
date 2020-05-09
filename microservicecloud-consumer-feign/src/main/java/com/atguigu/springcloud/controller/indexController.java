@@ -44,4 +44,8 @@ public class indexController {
     public String admin(){
         return "products2";
     }
+    @RequestMapping("/errors")
+    public String error(){
+        return "error";
+    }
 }

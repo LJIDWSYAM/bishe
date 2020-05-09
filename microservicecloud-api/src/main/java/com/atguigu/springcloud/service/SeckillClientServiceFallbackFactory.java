@@ -23,7 +23,7 @@ public class SeckillClientServiceFallbackFactory implements FallbackFactory<Seck
         return new SeckillClientService() {
             @Override
             public Result<String> doMiaosha(MiaoShaMessage miaoShaMessage) {
-                return Result.error(CodeMsg.stop);
+                return  Result.success("该微服务暂时停止");
             }
         };
     }

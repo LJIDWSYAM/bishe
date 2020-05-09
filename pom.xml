@@ -26,6 +26,10 @@
         <module>microservicecloud-provider-config-dept-client-8001</module>
         <module>microservicecloud-consumer-feign</module>
         <module>microservicecloud-provider-seckill-hystrix-8001</module>
+        <module>microservicecloud-provider-seckill-hystrix-8002</module>
+        <module>microservicecloud-provider-seckill-hystrix-8003</module>
+        <module>microservicecloud-provider-seckill-hystrix-8002</module>
+        <module>microservicecloud-provider-seckill-hystrix8003</module>
     </modules>
 
     <packaging>pom</packaging>

@@ -70,8 +70,7 @@ public class AlipayController {
                 format, charset, public_key, signtype);
         String path = request.getRequestURI();
         path = path.substring(0, path.lastIndexOf("/"));
-//        String resulturl = "http://localhost:8080/" + path + return_url;
-        String resulturl = path + return_url;
+        String resulturl = "http://localhost:8080/" + path + return_url;
         // 支付请求
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
         alipayRequest.setReturnUrl(resulturl);
@@ -99,7 +98,7 @@ public class AlipayController {
      * @throws Exception
      */
     @RequestMapping("/returnUrl")
-    public ModelAndView returnUrl(HttpServletRequest request, HttpSession session) throws Exception {
+    public ModelAndView returnUrl(HttpServletRequest request,HttpSession session) throws Exception {
         ModelAndView mav = new ModelAndView();
         // 获取支付宝GET过来反馈信息（官方固定代码）
         Map<String, String> params = new HashMap<String, String>();
@@ -133,10 +132,10 @@ public class AlipayController {
 
             OrderDetailInfoVo orderInfoVo2=orderService.selectAllInfoByOrderNo(orderNo);
             session.setAttribute("orderInfoVo",orderInfoVo2);
-            mav.setViewName("redirect:/orderInfo");
+            mav.setViewName("redirect:/listProducts");
         } else {
             System.out.println("前往支付失败页面");
-            mav.setViewName("failReturn");
+            mav.setViewName("redirect:/errors");
         }
         return mav;
     }

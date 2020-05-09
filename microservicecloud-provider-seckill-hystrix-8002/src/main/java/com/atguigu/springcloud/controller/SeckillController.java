@@ -1,16 +1,16 @@
-package springcloud.controller;
+package com.atguigu.springcloud.controller;
 
+import com.atguigu.springcloud.Utils.CodeMsg;
+import com.atguigu.springcloud.Utils.RedisUtil;
+import com.atguigu.springcloud.Utils.Result;
 import com.atguigu.springcloud.entities.*;
+import com.atguigu.springcloud.service.GoodsService;
+import com.atguigu.springcloud.service.MqSendService;
+import com.atguigu.springcloud.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import springcloud.Utils.CodeMsg;
-import springcloud.Utils.RedisUtil;
-import springcloud.Utils.Result;
-import springcloud.service.GoodsService;
-import springcloud.service.MqSendService;
-import springcloud.service.OrderService;
+
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -41,7 +41,7 @@ public class SeckillController {
     @ResponseBody
     @RequestMapping("/doMiaosha")
     public Result<String> doMiaosha(@RequestBody MiaoShaMessage miaoShaMessage, HttpSession session){
-        System.out.println("8001");
+        System.out.println("8002");
         String miaoshagoods_id=miaoShaMessage.getMiaoshagoods_id();
 //        System.out.println(miaoShaMessage);
         Order order=orderService.isRepeatOrder(miaoShaMessage);
