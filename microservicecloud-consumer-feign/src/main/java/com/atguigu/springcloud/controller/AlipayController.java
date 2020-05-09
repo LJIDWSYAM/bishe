@@ -6,9 +6,7 @@ import com.alipay.api.domain.AlipayTradePayModel;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.atguigu.springcloud.Utils.AlipayConfig;
-import com.atguigu.springcloud.entities.MiaoShaMessage;
-import com.atguigu.springcloud.entities.OrderAndGoodsInfo;
-import com.atguigu.springcloud.entities.OrderDetailInfoVo;
+import com.atguigu.springcloud.entities.*;
 import com.atguigu.springcloud.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,11 +58,11 @@ public class AlipayController {
 //        String totalAmount = String.valueOf(orderInfo.getMiaoShaGoods().getMiaosha_price()); // 支付总金额
 //        String subject = "商品秒杀System.out.println订单"; // 订单名称
 //        String body = orderInfo.getMiaoShaGoods().getGoods().getGoods_desc(); // 商品描述
-        OrderDetailInfoVo orderInfoVo=orderService.selectAllInfoByOrderNo(order_no);
-        String orderNo =orderInfoVo.getOrder_no();//订单编号
-        String totalAmount =String.valueOf(orderInfoVo.getMiaoshaGoods().getMiaosha_price());//总价格
-        String subject = orderInfoVo.getGoods().getGoods_name(); // 订单名称
-        String body = orderInfoVo.getGoods().getGoods_desc();//订单描述
+        GoodsAndMiaoShaGoodsAndOrder goodsAndMiaoShaGoodsAndOrder=orderService.selectAllInfoByOrderNo(order_no);
+        String orderNo =goodsAndMiaoShaGoodsAndOrder.getOrder_no();//订单编号
+        String totalAmount =String.valueOf(goodsAndMiaoShaGoodsAndOrder.getMiaosha_price());//总价格
+        String subject =goodsAndMiaoShaGoodsAndOrder.getGoods_name() ; // 订单名称
+        String body = goodsAndMiaoShaGoodsAndOrder.getGoods_desc();//订单描述
         // 封装请求客户端
         AlipayClient client = new DefaultAlipayClient(url, app_id, private_key,
                 format, charset, public_key, signtype);
@@ -125,13 +123,10 @@ public class AlipayController {
             orderInfoVo.setPay_time(df.parse(df.format(new Date())));// new Date()为获取当前系统时间
             orderService.updateOrder(orderInfoVo);
             //改变订单状态
-            MiaoShaMessage miaoShaMessage=new MiaoShaMessage();
-            miaoShaMessage.setUser_account(orderInfoVo.getUser_account());
-            miaoShaMessage.setMiaoshagoods_id(String.valueOf(orderInfoVo.getMiaoshagoods_id()));
-            orderService.updateOrderState(miaoShaMessage);
-
-            OrderDetailInfoVo orderInfoVo2=orderService.selectAllInfoByOrderNo(orderNo);
-            session.setAttribute("orderInfoVo",orderInfoVo2);
+            orderService.updateOrderStateByOrder_no(orderNo);
+            System.out.println(orderNo);
+//            OrderDetailInfoVo orderInfoVo2=orderService.selectAllInfoByOrderNo(orderNo);
+//            session.setAttribute("orderInfoVo",orderInfoVo2);
             mav.setViewName("redirect:/listProducts");
         } else {
             System.out.println("前往支付失败页面");

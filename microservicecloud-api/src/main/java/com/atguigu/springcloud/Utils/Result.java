@@ -1,5 +1,7 @@
 package com.atguigu.springcloud.Utils;
 
+import sun.applet.resources.MsgAppletViewer;
+
 public class Result<T> {
 
     private int code;
@@ -14,6 +16,7 @@ public class Result<T> {
         this.msg="success";
         this.data=data;
     }
+
 
     public Result(CodeMsg codeMsg) {
         if (codeMsg==null){

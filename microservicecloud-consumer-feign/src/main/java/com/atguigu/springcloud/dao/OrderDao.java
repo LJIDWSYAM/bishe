@@ -26,5 +26,7 @@ public interface OrderDao {
     void insertOrder(Order order);
     Order isRepeatOrder(MiaoShaMessage miaoShaMessage);
     void updateOrderState(MiaoShaMessage miaoShaMessage);
-    OrderDetailInfoVo selectAllInfoByOrderNo(String order_no);
+    GoodsAndMiaoShaGoodsAndOrder selectAllInfoByOrderNo(String order_no);
+    Order selectPersonalOrderInfoByUser_account(MiaoShaMessage miaoShaMessage);
+    void updateOrderStateByOrder_no(String order_no);
 }

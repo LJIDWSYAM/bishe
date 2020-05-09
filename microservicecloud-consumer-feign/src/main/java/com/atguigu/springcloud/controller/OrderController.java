@@ -113,11 +113,17 @@ public class OrderController {
             return modelAndView;
         }
         // 支付环节需要，地址id，账号，秒杀商品id。
+        //先查询出订单编号
+        MiaoShaMessage miaoShaMessage=new MiaoShaMessage();
+        miaoShaMessage.setUser_account(userInfo.getUser_account());
+        miaoShaMessage.setMiaoshagoods_id(miaoshaGoodsId);
+        Order order=orderService.selectPersonalOrderInfoByUser_account(miaoShaMessage);
         String user_account = userInfo.getUser_account();//miaoshaGoodsId,address_id已有
-        OrderDetailInfo orderdetailInfo = orderService.insertOrderdetailInfo(miaoshaGoodsId, user_account, address_id);
+        OrderDetailInfo orderdetailInfo = orderService.insertOrderdetailInfo(miaoshaGoodsId, user_account, address_id,order.getOrder_no());
         String order_no = orderdetailInfo.getOrder_no();
         //假设现在是立即支付  引入支付宝
         modelAndView.setViewName("redirect:/alipay/pay?order_no=" + order_no);
+        System.out.println(order_no);
         return modelAndView;
     }
 

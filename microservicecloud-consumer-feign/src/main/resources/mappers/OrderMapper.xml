@@ -99,12 +99,24 @@
         update `order` set state=2 where user_account=#{user_account} and miaoshagoods_id=#{miaoshagoods_id}
     </update>
 
-    <select id="selectAllInfoByOrderNo" parameterType="String" resultMap="selectAllInfoByOrderNoByMap">
-      SELECT *
-      FROM orderdetailinfo o join address a on o.user_account=a.user_account and o.address_id= a.address_id
-      join miaosha_goods m on o.miaoshagoods_id=m.miaoshagoods_id
-      join goods g on g.goods_id= m.goods_id
-      WHERE o.order_no=#{order_no}
+    <select id="selectAllInfoByOrderNo" parameterType="String" resultType="com.atguigu.springcloud.entities.GoodsAndMiaoShaGoodsAndOrder">
+<!--      SELECT *-->
+<!--      FROM orderdetailinfo o join address a on o.user_account=a.user_account and o.address_id= a.address_id-->
+<!--      join miaosha_goods m on o.miaoshagoods_id=m.miaoshagoods_id-->
+<!--      join goods g on g.goods_id= m.goods_id-->
+<!--      WHERE o.order_no=#{order_no}-->
+        select *
+        from `goods` g join miaosha_goods m
+        on g.goods_id=m.goods_id
+        join `order` o on o.miaoshagoods_id=m.miaoshagoods_id
+        where o.order_no=#{order_no}
     </select>
+    <select id="selectPersonalOrderInfoByUser_account" parameterType="com.atguigu.springcloud.entities.MiaoShaMessage" resultType="com.atguigu.springcloud.entities.Order">
+        select * from `order`
+        where user_account=#{user_account} and miaoshagoods_id=#{miaoshagoods_id}
+    </select>
+    <update id="updateOrderStateByOrder_no" parameterType="String">
+        update `order` set state=1 where order_no=#{order_no}
+    </update>
 
 </mapper>

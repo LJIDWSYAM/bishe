@@ -87,7 +87,7 @@
         where order_no=#{order_no}
     </update>
     <insert id="insertOrder" parameterType="com.atguigu.springcloud.entities.Order">
-        insert into `order` (order_no,miaoshagoods_id,user_account,create_time,buy_count,state)
+         insert into `order` (order_no,miaoshagoods_id,user_account,create_time,buy_count,state)
         VALUES (#{order_no},#{miaoshagoods_id},#{user_account},#{create_time},#{buy_count},#{state})
     </insert>
     <select id="isRepeatOrder" parameterType="com.atguigu.springcloud.entities.MiaoShaMessage" resultType="com.atguigu.springcloud.entities.Order">

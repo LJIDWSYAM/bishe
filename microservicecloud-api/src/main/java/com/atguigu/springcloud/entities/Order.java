@@ -1,6 +1,7 @@
 package com.atguigu.springcloud.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -20,6 +21,7 @@ public class Order implements Serializable {
     private int buy_count;
     private int state;
 
+    private BigDecimal miaosha_price;
     public String getOrder_no() {
         return order_no;
     }

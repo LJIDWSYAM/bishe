@@ -1,9 +1,14 @@
 package com.atguigu.springcloud.controller;
 
 
+import com.atguigu.springcloud.entities.UserInfo;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -25,8 +30,14 @@ public class indexController {
 
 
     @RequestMapping("/listProducts")
-    public String listProducts(){
-        return "products";
+    public ModelAndView listProducts(HttpSession session, ModelAndView modelAndView){
+        UserInfo userInfo = (UserInfo) session.getAttribute("UserInfo");
+        if (userInfo == null) {
+            modelAndView.setViewName("redirect:/");
+            return modelAndView;
+        }
+        modelAndView.setViewName("products");
+        return modelAndView;
     }
 
 

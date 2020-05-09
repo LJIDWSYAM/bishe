@@ -932,7 +932,7 @@
 						data:{miaoshagoods_id:$("#miaoshagoods_id").val()},
 						url:ctxPath+"/order/doMiaosha",
 						success:function (result) {
-							if (result.code==0){
+							if (result.code==0 && result.data!="该微服务暂时停止"){
 								alert(result.data);
 								//调用轮询查询
 								getMiaoShaResult($("#miaoshagoods_id").val());
@@ -953,11 +953,13 @@
 								// window.location.href=ctxPath+"/order/buy/"+$("#miaoshagoods_id").val();
 							}
 							else if(result.code==5005){//超时
-								alert(result.msg)
+								alert(result.msg);
+								window.location.reload();
 							}
 							else {
-								if (result.msg!=null){
-									alert(result.msg);
+								if (result.data!=null){
+									alert(result.data);
+									window.location.reload();
 								}
 							}
 						}

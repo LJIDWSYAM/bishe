@@ -45,15 +45,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     @Override
-    public OrderDetailInfo insertOrderdetailInfo(String miaoshagoodsId, String user_account, String address_id) {
+    public OrderDetailInfo insertOrderdetailInfo(String miaoshagoodsId, String user_account, String address_id,String order_no) {
         OrderDetailInfo orderdetailInfo =new OrderDetailInfo();
         orderdetailInfo.setUser_account(user_account);
         orderdetailInfo.setCreate_time(new Date());
-        SimpleDateFormat sdf1 =new SimpleDateFormat("yyyyMMdd" );
-        Date d1= new Date();
-        String str1 = sdf1.format(d1);
-        orderdetailInfo.setOrder_no(str1+miaoshagoodsId+user_account);
-        orderdetailInfo.setOrder_no(new Date().getTime()+miaoshagoodsId);
+        orderdetailInfo.setOrder_no(order_no);
         orderdetailInfo.setMiaoshagoods_id(Integer.valueOf(miaoshagoodsId));
         orderdetailInfo.setBuy_count(1);
         orderdetailInfo.setAddress_id(Integer.parseInt(address_id));
@@ -62,9 +58,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDetailInfoVo selectAllInfoByOrderNo(String order_no) {
-        OrderDetailInfoVo orderInfoVo=orderDao.selectAllInfoByOrderNo(order_no);
-        return orderInfoVo;
+    public GoodsAndMiaoShaGoodsAndOrder selectAllInfoByOrderNo(String order_no) {
+        GoodsAndMiaoShaGoodsAndOrder goodsAndMiaoShaGoodsAndOrder=orderDao.selectAllInfoByOrderNo(order_no);
+        return goodsAndMiaoShaGoodsAndOrder;
     }
 
     @Override
@@ -72,11 +68,20 @@ public class OrderServiceImpl implements OrderService {
         orderDao.updateOrderState(miaoShaMessage);
     }
 
+    @Override
+    public void updateOrderStateByOrder_no(String order_no) {
+        orderDao.updateOrderStateByOrder_no(order_no);
+    }
 
 
     @Override
     public List<OrderAndGoodsInfo> selectPersonalAllOrderInfoByUser_account(String user_account) {
         return orderDao.selectPersonalAllOrderInfoByUser_account(user_account);
+    }
+
+    @Override
+    public Order selectPersonalOrderInfoByUser_account(MiaoShaMessage miaoShaMessage) {
+        return orderDao.selectPersonalOrderInfoByUser_account(miaoShaMessage);
     }
 
     @Override

@@ -101,7 +101,7 @@ public class OrderServiceImpl implements OrderService {
         Order order =new Order();
         order.setUser_account(user_account);
         order.setCreate_time(new Date());
-        SimpleDateFormat sdf1 =new SimpleDateFormat("yyyyMMdd" );
+        SimpleDateFormat sdf1 =new SimpleDateFormat("yyyyMMddHHmmss" );
         Date d1= new Date();
         String str1 = sdf1.format(d1);
         order.setOrder_no(str1+miaoshagoodsId+user_account);
@@ -109,6 +109,8 @@ public class OrderServiceImpl implements OrderService {
         order.setBuy_count(1);
         order.setState(0);//0才创建，1已支付，2超时未支付
         insertOrder(order);
+        //订单详细信息插入
+
         //向死信队列发送消息
         rabbitTemplate.convertAndSend("Dead_DelayExchange", "Dead_DelayRouting", order);
     }
