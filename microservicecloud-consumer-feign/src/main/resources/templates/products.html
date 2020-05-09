@@ -412,7 +412,7 @@
                 // alert(goods.goods_price);
 
                 var html = "<div class='col-md-4 col-xs-6'><div class='product'><div class='product-img'>";
-                html+= " <img th:src=@{/img/"+goods.goods_img+"}> ";
+                html+= " <img src='/image/"+goods.goods_img+"'>";
                 //<img src='"+ctxPath+"/img/"+goods.goods_img+"'
                 html+= "<input type='hidden' class='idValue' value='"+goods.goods_id+"'>";
                 html += "<div class='product-label'><span class='sale'>-30%</span>";
